@@ -17,12 +17,14 @@ import android.widget.Toast;
 
 import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.BannerCallbacks;
+import com.appodeal.ads.NativeAd;
+import com.appodeal.ads.NativeCallbacks;
 
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdvertisingAdapter.Callback {
 
     private static final String APP_KEY = "9c85d2cfc5bf39fb654168042c0b44febcf500b36d60d4bc";
     private Context context;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView text;
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private AdvertisingAdapter advertisingAdapter;
 
     private boolean isCheck = true;
 
@@ -46,10 +48,15 @@ public class MainActivity extends AppCompatActivity {
         text = findViewById(R.id.time_value);
 
         mRecyclerView = findViewById(R.id.my_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mAdapter = new AdvertisingAdapter();
-        mRecyclerView.setAdapter(mAdapter);
+        advertisingAdapter = new AdvertisingAdapter();
+        advertisingAdapter.setCallback(this);
+        mRecyclerView.setAdapter(advertisingAdapter);
+
+        Appodeal.initialize(this, APP_KEY, Appodeal.NATIVE);
+        Appodeal.cache(this, Appodeal.NATIVE, 3);
 
         Appodeal.setTesting(true);
         Appodeal.disableLocationPermissionCheck();
@@ -135,8 +142,12 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Вы отключили показ рекламы", Toast.LENGTH_SHORT).show();
                     chronometer.stop();
                     button.setEnabled(false);
+                    advertisingAdapter.setItems(Appodeal.getNativeAds(3));
                 });
+
     }
+
+
 
     @Override
     protected void onResume() {
@@ -155,4 +166,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Appodeal", "onStop");
     }
 
+    @Override
+    public void showItems() {
+        findViewById(R.id.my_recycler_view).setVisibility(View.VISIBLE);
+    }
 }

@@ -32,12 +32,17 @@ repositories {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.google.android.ads.consent:consent-library:1.0.6'
+    implementation ('com.google.android.ads.consent:consent-library:1.0.6') {
+        exclude group: "com.android.support"
+    }
 
-    //noinspection GradleDependency
-    implementation 'com.google.android.gms:play-services-ads:15.0.0'
-    //noinspection GradleDependency
-    implementation 'com.google.android.gms:play-services-location:15.0.0'
+    implementation ('com.google.android.gms:play-services-ads:15.0.0') {
+        exclude group: "com.android.support"
+    }
+
+    implementation ('com.google.android.gms:play-services-location:15.0.0') {
+        exclude group: "com.android.support"
+    }
 
     implementation name: 'adcolony-sdk-3.2.1', ext: 'aar'
     implementation name: 'mmedia-6.4.0', ext: 'aar'
@@ -57,7 +62,9 @@ dependencies {
     implementation name: 'mobvista_videofeeds', ext: 'aar'
 
 
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 }

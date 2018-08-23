@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    xmlns:ads="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <com.appodeal.ads.MrecView
         android:id="@+id/appodealMrecView"
         android:layout_width="300dp"
         android:layout_height="250dp"
-        ads:adSize="SMART_BANNER"
         android:layout_centerInParent="true"
-        android:visibility="gone" />
+        android:visibility="gone"
+        ads:adSize="SMART_BANNER" />
 
     <Button
         android:id="@+id/start_button"
@@ -32,12 +32,13 @@
         android:id="@+id/time_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="203dp"
         android:visibility="gone" />
 
     <Chronometer
         android:id="@+id/chronometer"
+        android:layout_below="@+id/time_string"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -47,15 +48,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/start_button">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/my_recycler_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginBottom="161dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginBottom="161dp" />
+            android:layout_marginStart="30dp"
+            android:visibility="gone" />
 
     </LinearLayout>
 
